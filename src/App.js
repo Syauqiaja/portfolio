@@ -13,10 +13,10 @@ import Footer from './components/Footer';
 function App() {
   useEffect(() => {
     AOS.init({
-      duration: 1000,
+      duration: 500,
       once: true,
       easing: 'ease-out-cubic',
-      offset: 100,
+      offset: 10,
     });
   }, []);
 
