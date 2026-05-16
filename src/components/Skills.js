@@ -37,7 +37,7 @@ const Skills = () => {
   return (
     <section className="min-h-[70vh] flex items-center px-4 md:px-margin-desktop py-24 bg-surface/20 border-y border-border-muted" id="skills">
       <div className="max-w-container mx-auto w-full">
-        <div className="mb-12 flex items-center gap-4">
+        <div className="mb-12 flex items-center gap-4" data-aos="fade-up">
           <h2 className="text-headline-lg text-text-primary uppercase tracking-widest">
             02 // SKILLS_MATRIX
           </h2>
@@ -48,7 +48,9 @@ const Skills = () => {
           {skillsData.map((skill, index) => (
             <div 
               key={index}
-              className="hud-border p-6 bg-surface hover:bg-surface-hover transition-colors group"
+              className="hud-border p-6 bg-surface hover:bg-surface-hover transition-all duration-300 group"
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
             >
               <div className="flex justify-between items-center mb-4">
                 <span className="text-text-primary">{skill.name}</span>
@@ -57,7 +59,7 @@ const Skills = () => {
               
               <div className="h-1 w-full bg-border-muted overflow-hidden">
                 <div 
-                  className="h-full bg-text-secondary transition-all duration-1000"
+                  className="h-full bg-text-secondary transition-all duration-1000 ease-out"
                   style={{ width: `${skill.percentage}%` }}
                 ></div>
               </div>

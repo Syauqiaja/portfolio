@@ -5,14 +5,14 @@ const Hero = () => {
     <section className="min-h-screen flex items-center px-4 md:px-margin-desktop py-20 bg-canvas relative overflow-hidden" id="home">
       <div className="max-w-container mx-auto w-full">
         {/* Big Title Section */}
-        <div className="mb-16 text-center">
+        <div className="mb-16 text-center" data-aos="fade-down" data-aos-delay="200">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-text-primary mb-4 tracking-tight">
             AHMAD FAJRUDDIN SYAUQI
           </h1>
-          <p className="text-xl md:text-2xl text-text-secondary tracking-wide">
+          <p className="text-xl md:text-2xl text-text-secondary tracking-wide" data-aos="fade-up" data-aos-delay="400">
             Software Developer • Mobile & Web Specialist
           </p>
-          <div className="flex justify-center gap-2 mt-4">
+          <div className="flex justify-center gap-2 mt-4" data-aos="fade-up" data-aos-delay="600">
             <span className="text-accent-green text-sm">Flutter</span>
             <span className="text-text-secondary">•</span>
             <span className="text-accent-green text-sm">Android</span>
@@ -23,7 +23,7 @@ const Hero = () => {
 
         {/* Terminal and Avatar Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="order-2 lg:order-1">
+          <div className="order-2 lg:order-1" data-aos="fade-right" data-aos-delay="800">
             <div className="hud-border hud-corner p-8 bg-surface/50 backdrop-blur-sm crt-glow">
               <div className="flex items-center gap-2 mb-6 border-b border-border-muted pb-2">
                 <div className="w-3 h-3 rounded-full bg-red-500 opacity-50"></div>
@@ -73,7 +73,7 @@ const Hero = () => {
             </div>
           </div>
 
-          <div className="order-1 lg:order-2 flex justify-center relative">
+          <div className="order-1 lg:order-2 flex justify-center relative" data-aos="fade-left" data-aos-delay="800">
             <div className="relative group">
               <div className="absolute -inset-4 border border-border-muted pointer-events-none group-hover:border-text-secondary/40 transition-colors"></div>
               <div className="absolute -top-4 -left-4 w-4 h-4 border-t-2 border-l-2 border-text-secondary"></div>
@@ -92,7 +92,7 @@ const Hero = () => {
               </div>
             </div>
           </div>
-        </div>
+          </div>
       </div>
     </section>
   );

@@ -54,9 +54,9 @@ const Experience = () => {
   return (
     <section className="min-h-screen flex items-center px-4 md:px-margin-desktop py-24 bg-canvas" id="experience">
       <div className="max-w-4xl mx-auto w-full">
-        <div className="mb-12">
+        <div className="mb-12" data-aos="fade-up">
           <h2 className="text-headline-lg text-text-primary uppercase tracking-widest mb-2">
-            03 // DEPLOYMENT_LOGS
+            04 // DEPLOYMENT_LOGS
           </h2>
           <p className="text-text-secondary text-body-sm">
             Professional experience timeline - 2+ years in software development
@@ -65,8 +65,8 @@ const Experience = () => {
         
         <div className="space-y-12 border-l border-border-muted pl-8 relative">
           {experienceData.map((exp, index) => (
-            <div key={index} className="relative">
-              <div className={`absolute -left-[37px] top-1 w-4 h-4 rounded-full ${exp.dotColor} border-4 border-canvas ${exp.active ? 'shadow-[0_0_10px_rgba(71,237,129,0.5)]' : ''}`}></div>
+            <div key={index} className="relative" data-aos="fade-left" data-aos-delay={index * 150}>
+              <div className={`absolute -left-[37px] top-1 w-4 h-4 rounded-full ${exp.dotColor} border-4 border-canvas ${exp.active ? 'shadow-[0_0_10px_rgba(71,237,129,0.5)] animate-pulse' : ''}`}></div>
               
               <div className="text-label-caps text-text-secondary mb-1 uppercase">
                 {exp.period}
@@ -76,7 +76,7 @@ const Experience = () => {
                 {exp.title}
               </h3>
               
-              <div className="mt-4 p-5 bg-surface hud-border border-border-muted text-body-sm text-text-secondary">
+              <div className="mt-4 p-5 bg-surface hud-border border-border-muted text-body-sm text-text-secondary hover:bg-surface-hover transition-all duration-300">
                 {exp.logs.map((log, logIndex) => (
                   <div key={logIndex} className={`flex gap-2 ${logIndex < exp.logs.length - 1 ? 'mb-2' : ''}`}>
                     <span className={exp.logColor}>[{log.type}]</span>

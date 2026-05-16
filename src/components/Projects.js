@@ -43,9 +43,9 @@ const Projects = () => {
   return (
     <section className="min-h-screen px-4 md:px-margin-desktop py-24 bg-surface/10 border-t border-border-muted" id="projects">
       <div className="max-w-container mx-auto w-full">
-        <div className="mb-16 text-center">
+        <div className="mb-16 text-center" data-aos="fade-up">
           <h2 className="text-headline-lg text-text-primary uppercase tracking-[0.4em] mb-4">
-            04 // RECENT_DEPLOYMENTS
+            05 // RECENT_DEPLOYMENTS
           </h2>
           <div className="flex justify-center gap-1">
             <div className="w-12 h-1 bg-text-secondary"></div>
@@ -55,33 +55,38 @@ const Projects = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {allProjects.map((project) => (
+          {allProjects.map((project, index) => (
             <div 
               key={project.id} 
-              className="hud-border bg-surface/50 group hover:bg-surface transition-all overflow-hidden"
+              className="hud-border bg-surface/50 group hover:bg-surface transition-all duration-500 overflow-hidden hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(71,237,129,0.15)]"
+              data-aos="fade-up"
+              data-aos-delay={index * 150}
             >
               <div className="relative overflow-hidden">
                 <img 
                   alt={project.title} 
-                  className="w-full aspect-video object-cover opacity-80 group-hover:opacity-100 transition-all duration-700 grayscale group-hover:grayscale-0 scale-100 group-hover:scale-105" 
+                  className="w-full aspect-video object-cover opacity-80 group-hover:opacity-100 transition-all duration-700 grayscale group-hover:grayscale-0 scale-100 group-hover:scale-110" 
                   src={project.image}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-canvas to-transparent opacity-60"></div>
-                <div className="absolute bottom-4 left-4 bg-text-secondary/90 text-canvas px-3 py-1 text-[10px] tracking-widest uppercase font-semibold">
+                <div className="absolute bottom-4 left-4 bg-text-secondary/90 text-canvas px-3 py-1 text-[10px] tracking-widest uppercase font-semibold transform group-hover:scale-110 transition-transform duration-300">
                   {project.version}
                 </div>
               </div>
               
               <div className="p-6 space-y-4">
-                <h3 className="text-headline-md text-text-primary group-hover:text-accent-green transition-colors uppercase">
+                <h3 className="text-headline-md text-text-primary group-hover:text-accent-green transition-colors duration-300 uppercase">
                   {project.title}
                 </h3>
                 <p className="text-body-sm text-text-secondary leading-relaxed">
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag, index) => (
-                    <span key={index} className="border border-border-muted px-2 py-1 text-[10px] text-text-secondary uppercase">
+                  {project.tags.map((tag, tagIndex) => (
+                    <span 
+                      key={tagIndex} 
+                      className="border border-border-muted px-2 py-1 text-[10px] text-text-secondary uppercase hover:border-accent-green hover:text-accent-green transition-all duration-300"
+                    >
                       {tag}
                     </span>
                   ))}
@@ -90,9 +95,9 @@ const Projects = () => {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-accent-green hover:gap-4 transition-all group/btn text-sm"
+                  className="flex items-center gap-2 text-accent-green hover:gap-4 transition-all duration-300 group/btn text-sm"
                 >
-                  [VIEW_PROJECT] <span className="text-sm">→</span>
+                  [VIEW_PROJECT] <span className="text-sm transform group-hover/btn:translate-x-1 transition-transform">→</span>
                 </a>
               </div>
             </div>

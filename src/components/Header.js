@@ -13,9 +13,10 @@ const Header = () => {
       <nav className="hidden md:flex gap-8 text-label-caps uppercase tracking-widest text-text-secondary">
         <a className="hover:text-accent-green transition-colors py-1 border-b border-transparent hover:border-accent-green" href="#home">01_HOME</a>
         <a className="hover:text-accent-green transition-colors py-1 border-b border-transparent hover:border-accent-green" href="#skills">02_SKILLS</a>
-        <a className="hover:text-accent-green transition-colors py-1 border-b border-transparent hover:border-accent-green" href="#experience">03_EXPERIENCE</a>
-        <a className="hover:text-accent-green transition-colors py-1 border-b border-transparent hover:border-accent-green" href="#projects">04_PROJECTS</a>
-        <a className="hover:text-accent-green transition-colors py-1 border-b border-transparent hover:border-accent-green" href="#contact">05_CONTACT</a>
+        <a className="hover:text-accent-green transition-colors py-1 border-b border-transparent hover:border-accent-green" href="#education">03_EDUCATION</a>
+        <a className="hover:text-accent-green transition-colors py-1 border-b border-transparent hover:border-accent-green" href="#experience">04_EXPERIENCE</a>
+        <a className="hover:text-accent-green transition-colors py-1 border-b border-transparent hover:border-accent-green" href="#projects">05_PROJECTS</a>
+        <a className="hover:text-accent-green transition-colors py-1 border-b border-transparent hover:border-accent-green" href="#contact">06_CONTACT</a>
       </nav>
       
       <div className="flex gap-4 items-center">
@@ -33,9 +34,10 @@ const Header = () => {
           <nav className="flex flex-col p-4 gap-4 text-label-caps uppercase tracking-widest text-text-secondary">
             <a className="hover:text-accent-green transition-colors" href="#home" onClick={() => setMobileMenuOpen(false)}>01_HOME</a>
             <a className="hover:text-accent-green transition-colors" href="#skills" onClick={() => setMobileMenuOpen(false)}>02_SKILLS</a>
-            <a className="hover:text-accent-green transition-colors" href="#experience" onClick={() => setMobileMenuOpen(false)}>03_EXPERIENCE</a>
-            <a className="hover:text-accent-green transition-colors" href="#projects" onClick={() => setMobileMenuOpen(false)}>04_PROJECTS</a>
-            <a className="hover:text-accent-green transition-colors" href="#contact" onClick={() => setMobileMenuOpen(false)}>05_CONTACT</a>
+            <a className="hover:text-accent-green transition-colors" href="#education" onClick={() => setMobileMenuOpen(false)}>03_EDUCATION</a>
+            <a className="hover:text-accent-green transition-colors" href="#experience" onClick={() => setMobileMenuOpen(false)}>04_EXPERIENCE</a>
+            <a className="hover:text-accent-green transition-colors" href="#projects" onClick={() => setMobileMenuOpen(false)}>05_PROJECTS</a>
+            <a className="hover:text-accent-green transition-colors" href="#contact" onClick={() => setMobileMenuOpen(false)}>06_CONTACT</a>
           </nav>
         </div>
       )}
