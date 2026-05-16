@@ -20,10 +20,10 @@ function App() {
   }, []);
 
   return (
-    <div className="relative">
+    <div className="relative overflow-x-hidden">
       <div className="scanline"></div>
       <Header />
-      <main className="w-full pt-14 pb-12">
+      <main className="w-full pt-14 pb-12 overflow-x-hidden">
         <Hero />
         <Skills />
         <Education />

@@ -7,10 +7,16 @@
 @layer base {
   body {
     @apply bg-canvas text-text-primary font-mono antialiased;
+    overflow-x: hidden;
   }
   
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+  
+  * {
+    box-sizing: border-box;
   }
 }
 
