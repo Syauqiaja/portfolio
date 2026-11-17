@@ -1,13 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="112" fill="#09090b"/>
-  <g transform="translate(256 262) scale(1.14) translate(-256 -262)">
-    <path d="M256 112c96-4 162 52 164 148 2 92-64 150-162 150-96 0-166-56-166-146 0-92 68-148 164-152Z" fill="#61f7cf"/>
-    <ellipse cx="206" cy="246" rx="22" ry="32" fill="#09090b"/>
-    <ellipse cx="306" cy="246" rx="22" ry="32" fill="#09090b"/>
-    <circle cx="213" cy="234" r="7" fill="#ffffff"/>
-    <circle cx="313" cy="234" r="7" fill="#ffffff"/>
-    <circle cx="164" cy="306" r="17" fill="#ff9e96"/>
-    <circle cx="348" cy="306" r="17" fill="#ff9e96"/>
-    <path d="M222 318q34 32 68 0" fill="none" stroke="#09090b" stroke-width="16" stroke-linecap="round"/>
+  <rect width="512" height="512" rx="112" fill="#019d91"/>
+  <g transform="translate(-10 6)">
+    <rect x="132" y="104" width="44" height="300" rx="22" fill="#ffffff"/>
+    <path d="M168 116C240 78 306 166 396 120V196C306 242 240 154 168 192Z" fill="#ffffff"/><path d="M168 222C226 192 282 262 340 236V306C282 332 226 262 168 292Z" fill="#ffffff"/>
   </g>
 </svg>
