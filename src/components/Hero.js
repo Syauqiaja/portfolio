@@ -1,101 +1,132 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Icon from './Icon';
+import { Buddy, BlobBuddy, RobotBuddy, StarBuddy, PinkBuddy, PhoneMock } from './Characters';
+import { heroWords, profile } from '../data';
+import { useMouse } from '../hooks';
 
-const Hero = () => {
+const RotatingWord = () => {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setI((n) => (n + 1) % heroWords.length), 2200);
+    return () => clearInterval(id);
+  }, []);
   return (
-    <section className="min-h-screen flex items-center px-4 md:px-margin-desktop py-20 bg-canvas relative overflow-hidden" id="home">
-      <div className="max-w-container mx-auto w-full">
-        {/* Big Title Section */}
-        <div className="mb-16 text-center" data-aos="fade-down" data-aos-delay="200">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-text-primary mb-4 tracking-tight">
-            AHMAD FAJRUDDIN SYAUQI
-          </h1>
-          <p className="text-xl md:text-2xl text-text-secondary tracking-wide" data-aos="fade-up" data-aos-delay="400">
-            Software Developer • Mobile & Web Specialist
-          </p>
-          <div className="flex justify-center gap-2 mt-4" data-aos="fade-up" data-aos-delay="600">
-            <span className="text-accent-green text-sm">Flutter</span>
-            <span className="text-text-secondary">•</span>
-            <span className="text-accent-green text-sm">Android</span>
-            <span className="text-text-secondary">•</span>
-            <span className="text-accent-green text-sm">Laravel</span>
-          </div>
-        </div>
-
-        {/* Terminal and Avatar Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="order-2 lg:order-1" data-aos="fade-right" data-aos-delay="800">
-            <div className="hud-border hud-corner p-8 bg-surface/50 backdrop-blur-sm crt-glow">
-              <div className="flex items-center gap-2 mb-6 border-b border-border-muted pb-2">
-                <div className="w-3 h-3 rounded-full bg-red-500 opacity-50"></div>
-                <div className="w-3 h-3 rounded-full bg-yellow-500 opacity-50"></div>
-                <div className="w-3 h-3 rounded-full bg-accent-green opacity-50"></div>
-                <span className="ml-auto text-label-caps text-text-secondary">terminal.sh</span>
-              </div>
-
-              <div className="text-body-base">
-                <div className="mb-4 text-accent-blue italic">Initializing fullstack_developer_v3...</div>
-                <div className="mb-2">
-                  <span className="text-accent-green">$</span>
-                  <span className="text-text-primary"> whoami</span>
-                </div>
-                <div className="mb-4 text-text-primary">
-                  Ahmad Fajruddin Syauqi - Software Developer specializing in mobile & web development with Flutter, Laravel, and Android native.
-                </div>
-
-                <div className="mb-2">
-                  <span className="text-accent-green">$</span>
-                  <span className="text-text-primary"> cat status.env</span>
-                </div>
-                <div className="mb-4 space-y-1">
-                  <div className="flex gap-4">
-                    <span className="text-accent-green">LOCATION:</span>
-                    <span className="text-text-secondary">Malang, Indonesia</span>
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-accent-green">EXPERIENCE:</span>
-                    <span className="text-text-secondary">2+ Years</span>
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-accent-green">STATUS:</span>
-                    <span className="text-accent-green flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 bg-accent-green rounded-full"></span>
-                      AVAILABLE
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-center">
-                  <span className="text-accent-green mr-2">$</span>
-                  <span className="text-text-primary">contact --init</span>
-                  <span className="terminal-cursor"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="order-1 lg:order-2 flex justify-center relative" data-aos="fade-left" data-aos-delay="800">
-            <div className="relative group">
-              <div className="absolute -inset-4 border border-border-muted pointer-events-none group-hover:border-text-secondary/40 transition-colors"></div>
-              <div className="absolute -top-4 -left-4 w-4 h-4 border-t-2 border-l-2 border-text-secondary"></div>
-              <div className="absolute -bottom-4 -right-4 w-4 h-4 border-b-2 border-r-2 border-text-secondary"></div>
-
-              <div className="w-64 h-64 md:w-80 md:h-80 bg-surface border border-border-muted overflow-hidden transition-all duration-500">
-                <img
-                  alt="Ahmad Fajruddin Syauqi"
-                  className="w-full h-full object-cover"
-                  src="/images/me.jpeg"
-                />
-              </div>
-
-              <div className="absolute -right-8 top-1/2 -translate-y-1/2 rotate-90 text-label-caps text-text-secondary tracking-[0.3em] whitespace-nowrap">
-                UID: 0x2A4B9F
-              </div>
-            </div>
-          </div>
-          </div>
-      </div>
-    </section>
+    <span className="relative inline-block whitespace-nowrap">
+      <span className="absolute inset-x-[-4px] bottom-[0.08em] top-[0.45em] -z-10 rounded-button bg-mint-pop/70" />
+      <span key={i} className="inline-block animate-word-in">
+        {heroWords[i]}
+      </span>
+    </span>
   );
 };
+
+const HeroArt = () => {
+  const mouse = useMouse();
+  const [starSpin, setStarSpin] = useState(false);
+
+  return (
+    <div className="relative mx-auto h-[440px] w-full max-w-[480px] md:h-[500px]" aria-label="Playful illustration, click the characters">
+      {/* Backdrop shapes */}
+      <div className="absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-paper md:h-[400px] md:w-[400px]" />
+      <div className="absolute left-[8%] top-[18%] h-14 w-14 animate-spin-slow rounded-card border-2 border-dashed border-cloud" />
+      <div className="absolute bottom-[12%] right-[6%] h-6 w-6 animate-float rounded-full bg-mint-wash" />
+
+      {/* Phone */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-float-slow">
+        <PhoneMock />
+      </div>
+
+      {/* Characters */}
+      <Buddy
+        label="Star character"
+        lines={['Woohoo! ⭐', 'Spin me again!', 'Top 3 baby!']}
+        className="left-[2%] top-[4%] animate-float-rot"
+      >
+        <span onClick={() => setStarSpin((s) => !s)}>
+          <StarBuddy spinning={starSpin} />
+        </span>
+      </Buddy>
+
+      <Buddy
+        label="Robot character"
+        lines={['beep boop 🤖', 'CI/CD green ✅', 'Deploying…']}
+        className="right-[0%] top-[8%] animate-float"
+      >
+        <RobotBuddy mouse={mouse} />
+      </Buddy>
+
+      <Buddy
+        label="Blob character"
+        lines={['Hi there! 👋', 'I ❤️ Flutter', 'Hire Syauqi!', 'Boop!']}
+        className="bottom-[4%] left-[0%] animate-float-slow"
+      >
+        <BlobBuddy mouse={mouse} />
+      </Buddy>
+
+      <Buddy
+        label="Pink character"
+        lines={['Kotlin ftw', 'So smooth ✨', '60 fps!']}
+        className="bottom-[16%] right-[4%] animate-float-rot [animation-delay:1s]"
+      >
+        <PinkBuddy mouse={mouse} />
+      </Buddy>
+
+      <span className="pointer-events-none absolute left-1/2 top-[2%] -translate-x-1/2 rounded-full border border-cloud bg-paper px-3 py-1 text-caption font-medium text-steel">
+        {'</> tap us!'}
+      </span>
+    </div>
+  );
+};
+
+const Hero = () => (
+  <section id="home" className="relative overflow-hidden pb-16 pt-12 md:pb-20 md:pt-20">
+    <div className="container-page grid items-center gap-10 lg:grid-cols-[1.1fr_1fr]">
+      <div>
+        <span className="eyebrow">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-teal" />
+          </span>
+          Available for new projects · {profile.location}
+        </span>
+
+        <h1 className="relative z-0 mt-6 text-heading-sm text-ink sm:text-heading lg:text-heading-lg">
+          Hi, I&apos;m {profile.shortName}. I build <RotatingWord /> people love to use.
+        </h1>
+
+        <p className="mt-6 max-w-xl text-body-lg text-steel">
+          {profile.role} from Indonesia crafting fast, reliable apps with Flutter, native Android and Laravel.
+          2+ years turning messy problems into smooth, shippable products.
+        </p>
+
+        <div className="mt-8 flex flex-wrap gap-3">
+          <a href="#work" className="btn-primary btn-lg group">
+            See my work
+            <Icon name="arrowRight" size={18} className="transition-transform duration-150 group-hover:translate-x-1" />
+          </a>
+          <a href={profile.resume} download={profile.resumeName} className="btn-outline btn-lg group">
+            <Icon name="download" size={18} className="transition-transform duration-150 group-hover:translate-y-0.5" />
+            Download resume
+          </a>
+        </div>
+
+        <div className="mt-8 flex items-center gap-3 text-body-sm text-steel">
+          <img
+            src={profile.photo}
+            alt={profile.name}
+            className="h-10 w-10 rounded-full object-cover ring-2 ring-paper"
+          />
+          <span>
+            <span className="font-medium text-ink">{profile.name}</span>
+            <br />
+            Flutter · Android · Laravel
+          </span>
+        </div>
+      </div>
+
+      <HeroArt />
+    </div>
+  </section>
+);
 
 export default Hero;

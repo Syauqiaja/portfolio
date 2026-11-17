@@ -1,90 +1,107 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Icon from './Icon';
+import Reveal from './Reveal';
+import { experience, profile } from '../data';
 
-const experienceData = [
-  {
-    period: 'OCT 2024 - PRESENT',
-    title: 'Software Developer @ Galaxy Property',
-    logs: [
-      { type: 'INFO', message: 'Improved crash-free sessions from 58% to 90% using Flutter BLoC.' },
-      { type: 'INFO', message: 'Built RESTful APIs and admin systems with Laravel Livewire.' },
-      { type: 'INFO', message: 'Reduced development time by 50% via CI/CD automation.' }
-    ],
-    dotColor: 'bg-accent-green',
-    logColor: 'text-accent-green',
-    active: true
-  },
-  {
-    period: 'SEPT 2024 - JUNE 2025',
-    title: 'Software Developer @ Aliflammim (Remote)',
-    logs: [
-      { type: 'INFO', message: 'Led team of 3 building Kuwait Quran app with Flutter.' },
-      { type: 'INFO', message: 'Implemented Provider and BLoC state management patterns.' },
-      { type: 'INFO', message: 'Coordinated sprints and code reviews for timely delivery.' }
-    ],
-    dotColor: 'bg-accent-secondary',
-    logColor: 'text-accent-secondary',
-    active: false
-  },
-  {
-    period: 'JAN 2024 - JAN 2025',
-    title: 'Android Developer @ Campaign.com',
-    logs: [
-      { type: 'INFO', message: 'Reduced page load time by 50% using Coroutines and Flow.' },
-      { type: 'INFO', message: 'Implemented JUnit tests and cloud messaging features.' },
-      { type: 'INFO', message: 'Applied best practices with Kotlin, Java, and Dagger-Hilt.' }
-    ],
-    dotColor: 'bg-text-secondary',
-    logColor: 'text-text-secondary',
-    active: false
-  },
-  {
-    period: 'JULY 2023 - JUNE 2024',
-    title: 'Founder & Android Developer @ Herbify Indonesia',
-    logs: [
-      { type: 'INIT', message: 'Published app with 500+ installs in first month.' },
-      { type: 'INIT', message: 'Integrated RESTful APIs and JSON data handling.' }
-    ],
-    dotColor: 'bg-text-secondary/30',
-    logColor: 'text-text-secondary',
-    active: false
-  }
-];
+const initials = (name) =>
+  name
+    .split(' ')
+    .map((w) => w[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
+
+const ExperienceItem = ({ job, open, onToggle, index }) => (
+  <Reveal delay={index * 80}>
+    <div className={`card border transition-colors duration-150 ${open ? 'border-cloud' : 'border-transparent hover:border-cloud'}`}>
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={open}
+        className="flex w-full items-center gap-4 p-5 text-left md:p-6"
+      >
+        <span
+          className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-button font-display text-body font-medium ${job.color} ${
+            job.dark ? 'text-mint-pop' : 'text-ink'
+          } transition-transform duration-300 ease-spring ${open ? 'rotate-[-8deg] scale-110' : ''}`}
+        >
+          {initials(job.company)}
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="flex flex-wrap items-center gap-2">
+            <span className="font-display text-body-lg font-medium text-ink">{job.company}</span>
+            {job.current && (
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-mint-wash px-2 py-0.5 text-caption font-medium text-ink">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-teal" />
+                </span>
+                Now
+              </span>
+            )}
+          </span>
+          <span className="mt-0.5 block text-body-sm text-steel">
+            {job.role} · {job.period}
+          </span>
+        </span>
+        <span
+          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-canvas text-ink transition-transform duration-300 ease-layout ${
+            open ? 'rotate-180' : ''
+          }`}
+        >
+          <Icon name="chevronDown" size={16} />
+        </span>
+      </button>
+      <div className="collapse-grid" data-open={open}>
+        <div className="overflow-hidden">
+          <ul className="space-y-3 px-5 pb-6 md:pl-[88px] md:pr-6">
+            {job.points.map((p, i) => (
+              <li
+                key={p}
+                className={`flex gap-3 text-body text-steel ${open ? 'animate-pop-in' : ''}`}
+                style={{ animationDelay: `${i * 60 + 80}ms` }}
+              >
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-mint-wash text-teal">
+                  <Icon name="check" size={12} strokeWidth={3} />
+                </span>
+                {p}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </Reveal>
+);
 
 const Experience = () => {
+  const [openIndex, setOpenIndex] = useState(0);
+
   return (
-    <section className="min-h-screen flex items-center px-4 md:px-margin-desktop py-24 bg-canvas" id="experience">
-      <div className="max-w-4xl mx-auto w-full">
-        <div className="mb-12" data-aos="fade-up">
-          <h2 className="text-headline-lg text-text-primary uppercase tracking-widest mb-2">
-            04 // DEPLOYMENT_LOGS
-          </h2>
-          <p className="text-text-secondary text-body-sm">
-            Professional experience timeline - 2+ years in software development
+    <section id="experience" className="section scroll-mt-16">
+      <div className="container-page grid gap-10 lg:grid-cols-[1fr_1.5fr] lg:gap-16">
+        <Reveal className="lg:sticky lg:top-28 lg:self-start">
+          <h2 className="text-heading-sm text-ink md:text-heading">Where I&apos;ve worked</h2>
+          <p className="mt-4 max-w-md text-body-lg text-steel">
+            From founding my own app to leading remote teams, here&apos;s the road so far. Tap a role to peek inside.
           </p>
-        </div>
-        
-        <div className="space-y-12 border-l border-border-muted pl-8 relative">
-          {experienceData.map((exp, index) => (
-            <div key={index} className="relative" data-aos="fade-left" data-aos-delay={index * 150}>
-              <div className={`absolute -left-[37px] top-1 w-4 h-4 rounded-full ${exp.dotColor} border-4 border-canvas ${exp.active ? 'shadow-[0_0_10px_rgba(71,237,129,0.5)] animate-pulse' : ''}`}></div>
-              
-              <div className="text-label-caps text-text-secondary mb-1 uppercase">
-                {exp.period}
-              </div>
-              
-              <h3 className="text-headline-md text-text-primary uppercase">
-                {exp.title}
-              </h3>
-              
-              <div className="mt-4 p-5 bg-surface hud-border border-border-muted text-body-sm text-text-secondary hover:bg-surface-hover transition-all duration-300">
-                {exp.logs.map((log, logIndex) => (
-                  <div key={logIndex} className={`flex gap-2 ${logIndex < exp.logs.length - 1 ? 'mb-2' : ''}`}>
-                    <span className={exp.logColor}>[{log.type}]</span>
-                    <span>{log.message}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="relative mt-8 hidden w-fit lg:block">
+            <img src={profile.photo} alt={profile.name} className="h-56 w-56 rounded-feature object-cover" />
+            <span className="absolute -right-6 -top-4 animate-float-rot rounded-full bg-sunshine px-3 py-1.5 text-body-sm font-medium text-ink">
+              Hi! 👋
+            </span>
+          </div>
+        </Reveal>
+
+        <div className="space-y-3">
+          {experience.map((job, i) => (
+            <ExperienceItem
+              key={job.company}
+              job={job}
+              index={i}
+              open={openIndex === i}
+              onToggle={() => setOpenIndex(openIndex === i ? -1 : i)}
+            />
           ))}
         </div>
       </div>

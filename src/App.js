@@ -1,37 +1,36 @@
-import React, { useEffect } from 'react';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import React from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
+import { StatTiles, TechMarquee } from './components/Stats';
 import Skills from './components/Skills';
-import Education from './components/Education';
-import Experience from './components/Experience';
 import Projects from './components/Projects';
+import Experience from './components/Experience';
+import Education from './components/Education';
 import Contact from './components/Contact';
+import Footer from './components/Footer';
 
 function App() {
-  useEffect(() => {
-    AOS.init({
-      duration: 500,
-      once: true,
-      easing: 'ease-out-cubic',
-      offset: 10,
-    });
-  }, []);
-
   return (
-    <div className="relative overflow-x-hidden">
-      <div className="scanline"></div>
+    <>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-button focus:bg-paper focus:px-4 focus:py-2"
+      >
+        Skip to content
+      </a>
       <Header />
-      <main className="w-full pt-14 pb-12 overflow-x-hidden">
+      <main id="main" className="overflow-x-clip">
         <Hero />
+        <StatTiles />
+        <TechMarquee />
         <Skills />
-        <Education />
-        <Experience />
         <Projects />
+        <Experience />
+        <Education />
         <Contact />
       </main>
-    </div>
+      <Footer />
+    </>
   );
 }
 

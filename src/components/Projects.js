@@ -1,108 +1,163 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import Icon from './Icon';
+import Reveal from './Reveal';
+import { projects } from '../data';
 
-const allProjects = [
-  {
-    id: 'HERBIFY_APP',
-    title: 'HERBIFY_TELEMEDICINE',
-    description: 'Led Herbal Telemedicine platform development for Indonesia, leveraging ML image classification. Switched from MVVM to Clean Architecture with modularization for scalability. Top 3 Best Capstone Project Bangkit 2023, securing IDR 140M funding from Google and Dikti.',
-    tags: ['KOTLIN', 'CLEAN_ARCH', 'ML', 'MVVM'],
-    image: 'https://placehold.co/600x400/EEE/31343C',
-    version: 'PRODUCTION // v3.2.1',
-    link: 'https://play.google.com/store/apps/details?id=com.herbify.herbifyapp'
-  },
-  {
-    id: 'VRLABORATORY_LMS',
-    title: 'VRLABORATORY_LMS',
-    description: 'Engineered VR-integrated Learning Management System using Laravel Volt and Tailwind CSS, enabling immersive laboratory simulations with RESTful API backend.',
-    tags: ['LARAVEL', 'VR', 'API'],
-    image: 'https://placehold.co/600x400/EEE/31343C',
-    version: 'PRODUCTION // v2.1.0',
-    link: 'http://vrlaboratory.bio'
-  },
-  {
-    id: 'VIRULEARN_PLATFORM',
-    title: 'VIRULEARN_PLATFORM',
-    description: 'Developed LMS in collaboration with Inovasiin.Id for interactive virus education. Implemented responsive UI with Bootstrap and Laravel Livewire for dynamic content.',
-    tags: ['LIVEWIRE', 'BOOTSTRAP'],
-    image: 'https://placehold.co/600x400/EEE/31343C',
-    version: 'LIVE // v1.5.3',
-    link: 'https://virulearn.com'
-  },
-  {
-    id: 'PLANTELLIGENCE',
-    title: 'PLANTELLIGENCE',
-    description: 'Built an interactive digital flipbook application using Laravel Livewire for real-time rendering and TurnJS for page-turning animations, delivering an enhanced user reading experience.',
-    tags: ['LARAVEL', 'LIVEWIRE', 'TURNJS'],
-    image: 'https://placehold.co/600x400/EEE/31343C',
-    version: 'LIVE // v1.0.0',
-    link: 'https://plantelligence.bio'
-  }
-];
+const filters = ['All', ...Array.from(new Set(projects.map((p) => p.category)))];
+
+/** Illustrated cover that tilts toward the pointer. */
+const ProjectArt = ({ project }) => {
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const { art } = project;
+
+  const onMove = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    setTilt({ x: py * -8, y: px * 10 });
+  };
+
+  return (
+    <div style={{ perspective: 900 }}>
+      <div
+        onPointerMove={onMove}
+        onPointerLeave={() => setTilt({ x: 0, y: 0 })}
+        className={`relative aspect-[4/3] overflow-hidden rounded-feature ${art.bg} transition-transform duration-300 ease-out`}
+        style={{ transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)` }}
+      >
+        <span
+          className={`absolute -right-10 -top-10 h-48 w-48 rounded-full ${art.blob} opacity-80 transition-transform duration-500 ease-spring group-hover:scale-125`}
+        />
+        <span
+          className={`absolute bottom-8 left-8 h-14 w-14 animate-spin-slow rounded-card ${art.accent} opacity-90`}
+        />
+        <span className="absolute bottom-10 right-12 h-5 w-5 animate-float rounded-full bg-paper" />
+        <span className="absolute left-10 top-10 h-3 w-3 animate-float rounded-full bg-ink [animation-delay:0.6s]" />
+        <span
+          className="absolute inset-0 flex items-center justify-center text-[88px] transition-transform duration-500 ease-spring group-hover:-rotate-12 group-hover:scale-125"
+          style={{ transform: `translate(${tilt.y * 1.5}px, ${-tilt.x * 1.5}px)` }}
+          aria-hidden="true"
+        >
+          {art.emoji}
+        </span>
+        <span className="absolute left-5 top-5 rounded-full bg-paper px-3 py-1 text-caption font-medium text-ink">
+          {project.category}
+        </span>
+      </div>
+    </div>
+  );
+};
+
+const ProjectCard = ({ project }) => (
+  <article className="group w-[85%] shrink-0 snap-start sm:w-[60%] lg:w-[calc(50%-12px)]">
+    <ProjectArt project={project} />
+    <div className="px-1 pt-5">
+      <h3 className="text-subheading text-ink">{project.title}</h3>
+      <p className="mt-2 text-body-sm text-steel">{project.description}</p>
+      <ul className="mt-4 flex flex-wrap gap-2">
+        {project.tags.map((t) => (
+          <li key={t} className="chip">
+            {t}
+          </li>
+        ))}
+      </ul>
+      <a
+        href={project.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-4 inline-flex items-center gap-1 text-body-sm font-medium text-teal hover:text-teal-dark"
+      >
+        {project.linkLabel}
+        <Icon name="arrowUpRight" size={16} className="transition-transform duration-150 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+      </a>
+    </div>
+  </article>
+);
 
 const Projects = () => {
+  const [filter, setFilter] = useState('All');
+  const [progress, setProgress] = useState(0);
+  const trackRef = useRef(null);
+  const visible = projects.filter((p) => filter === 'All' || p.category === filter);
+
+  const updateProgress = () => {
+    const el = trackRef.current;
+    if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    setProgress(max > 0 ? el.scrollLeft / max : 1);
+  };
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (el) el.scrollLeft = 0;
+    updateProgress();
+    window.addEventListener('resize', updateProgress);
+    return () => window.removeEventListener('resize', updateProgress);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter]);
+
+  const scrollByCard = (dir) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const card = el.querySelector('article');
+    const step = card ? card.getBoundingClientRect().width + 24 : el.clientWidth * 0.8;
+    if (el.scrollBy) el.scrollBy({ left: dir * step, behavior: 'smooth' });
+    else el.scrollLeft += dir * step;
+  };
+
   return (
-    <section className="min-h-screen px-4 md:px-margin-desktop py-24 bg-surface/10 border-t border-border-muted" id="projects">
-      <div className="max-w-container mx-auto w-full">
-        <div className="mb-16 text-center" data-aos="fade-up">
-          <h2 className="text-headline-lg text-text-primary uppercase tracking-[0.4em] mb-4">
-            05 // RECENT_DEPLOYMENTS
-          </h2>
-          <div className="flex justify-center gap-1">
-            <div className="w-12 h-1 bg-text-secondary"></div>
-            <div className="w-4 h-1 bg-border-muted"></div>
-            <div className="w-2 h-1 bg-border-muted"></div>
+    <section id="work" className="section scroll-mt-16 overflow-hidden">
+      <div className="container-page">
+        <Reveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div>
+            <h2 className="text-heading-sm text-ink md:text-heading">Selected work</h2>
+            <p className="mt-3 max-w-lg text-body-lg text-steel">Apps and platforms I&apos;ve designed, built and shipped.</p>
           </div>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {allProjects.map((project, index) => (
-            <div 
-              key={project.id} 
-              className="hud-border bg-surface/50 group hover:bg-surface transition-all duration-500 overflow-hidden hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(71,237,129,0.15)]"
-              data-aos="fade-up"
-              data-aos-delay={index * 150}
-            >
-              <div className="relative overflow-hidden">
-                <img 
-                  alt={project.title} 
-                  className="w-full aspect-video object-cover opacity-80 group-hover:opacity-100 transition-all duration-700 grayscale group-hover:grayscale-0 scale-100 group-hover:scale-110" 
-                  src={project.image}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-canvas to-transparent opacity-60"></div>
-                <div className="absolute bottom-4 left-4 bg-text-secondary/90 text-canvas px-3 py-1 text-[10px] tracking-widest uppercase font-semibold transform group-hover:scale-110 transition-transform duration-300">
-                  {project.version}
-                </div>
-              </div>
-              
-              <div className="p-6 space-y-4">
-                <h3 className="text-headline-md text-text-primary group-hover:text-accent-green transition-colors duration-300 uppercase">
-                  {project.title}
-                </h3>
-                <p className="text-body-sm text-text-secondary leading-relaxed">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag, tagIndex) => (
-                    <span 
-                      key={tagIndex} 
-                      className="border border-border-muted px-2 py-1 text-[10px] text-text-secondary uppercase hover:border-accent-green hover:text-accent-green transition-all duration-300"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <a 
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-accent-green hover:gap-4 transition-all duration-300 group/btn text-sm"
+          <div className="flex items-center gap-3">
+            <div className="flex gap-1 rounded-card border border-cloud bg-paper p-1">
+              {filters.map((f) => (
+                <button
+                  key={f}
+                  type="button"
+                  onClick={() => setFilter(f)}
+                  aria-pressed={filter === f}
+                  className={`rounded-button px-3 py-1.5 text-body-sm font-medium transition-colors duration-150 ${
+                    filter === f ? 'bg-ink text-paper' : 'text-steel hover:text-ink'
+                  }`}
                 >
-                  [VIEW_PROJECT] <span className="text-sm transform group-hover/btn:translate-x-1 transition-transform">→</span>
-                </a>
-              </div>
+                  {f}
+                </button>
+              ))}
             </div>
-          ))}
-        </div>
+            <div className="hidden gap-2 sm:flex">
+              <button type="button" onClick={() => scrollByCard(-1)} className="btn-outline h-10 w-10 !p-0" aria-label="Previous project">
+                <Icon name="arrowLeft" size={18} />
+              </button>
+              <button type="button" onClick={() => scrollByCard(1)} className="btn-outline h-10 w-10 !p-0" aria-label="Next project">
+                <Icon name="arrowRight" size={18} />
+              </button>
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal delay={100}>
+          <div
+            ref={trackRef}
+            onScroll={updateProgress}
+            className="no-scrollbar -mx-4 mt-10 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-px-4 px-4 pb-2 md:-mx-8 md:scroll-px-8 md:px-8"
+          >
+            {visible.map((p) => (
+              <ProjectCard key={p.id} project={p} />
+            ))}
+            <div className="w-px shrink-0" aria-hidden="true" />
+          </div>
+          <div className="mt-8 h-1 overflow-hidden rounded-full bg-cloud">
+            <div
+              className="h-full rounded-full bg-teal transition-[width] duration-150"
+              style={{ width: `${Math.max(progress, 0.08) * 100}%` }}
+            />
+          </div>
+        </Reveal>
       </div>
     </section>
   );
