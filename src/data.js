@@ -144,6 +144,8 @@ export const experience = [
   },
   {
     company: 'Aliflammim',
+    logo: '/images/companies/aliflammim.png',
+    logoDark: true,
     role: 'Software Developer · Remote',
     period: 'Sept 2024 — June 2025',
     color: 'bg-sunshine',

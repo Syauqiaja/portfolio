@@ -22,11 +22,16 @@ const ExperienceItem = ({ job, open, onToggle, index }) => (
       >
         {job.logo ? (
           <span
-            className={`h-12 w-12 shrink-0 overflow-hidden rounded-button border border-cloud bg-paper transition-transform duration-300 ease-spring ${
-              open ? 'rotate-[-8deg] scale-110' : ''
-            }`}
+            className={`h-12 w-12 shrink-0 overflow-hidden rounded-button transition-transform duration-300 ease-spring ${
+              job.logoDark ? 'bg-charcoal p-1.5' : 'border border-cloud bg-paper'
+            } ${open ? 'rotate-[-8deg] scale-110' : ''}`}
           >
-            <img src={job.logo} alt={`${job.company} logo`} className="h-full w-full object-cover" loading="lazy" />
+            <img
+              src={job.logo}
+              alt={`${job.company} logo`}
+              className={`h-full w-full ${job.logoDark ? 'object-contain' : 'object-cover'}`}
+              loading="lazy"
+            />
           </span>
         ) : (
           <span
