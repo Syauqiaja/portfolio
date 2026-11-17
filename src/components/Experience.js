@@ -20,13 +20,23 @@ const ExperienceItem = ({ job, open, onToggle, index }) => (
         aria-expanded={open}
         className="flex w-full items-center gap-4 p-5 text-left md:p-6"
       >
-        <span
-          className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-button font-display text-body font-medium ${job.color} ${
-            job.dark ? 'text-mint-pop' : 'text-ink'
-          } transition-transform duration-300 ease-spring ${open ? 'rotate-[-8deg] scale-110' : ''}`}
-        >
-          {initials(job.company)}
-        </span>
+        {job.logo ? (
+          <span
+            className={`h-12 w-12 shrink-0 overflow-hidden rounded-button border border-cloud bg-paper transition-transform duration-300 ease-spring ${
+              open ? 'rotate-[-8deg] scale-110' : ''
+            }`}
+          >
+            <img src={job.logo} alt={`${job.company} logo`} className="h-full w-full object-cover" loading="lazy" />
+          </span>
+        ) : (
+          <span
+            className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-button font-display text-body font-medium ${job.color} ${
+              job.dark ? 'text-mint-pop' : 'text-ink'
+            } transition-transform duration-300 ease-spring ${open ? 'rotate-[-8deg] scale-110' : ''}`}
+          >
+            {initials(job.company)}
+          </span>
+        )}
         <span className="min-w-0 flex-1">
           <span className="flex flex-wrap items-center gap-2">
             <span className="font-display text-body-lg font-medium text-ink">{job.company}</span>

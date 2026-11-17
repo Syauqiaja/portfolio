@@ -131,6 +131,7 @@ export const projects = [
 export const experience = [
   {
     company: 'Galaxy Property',
+    logo: '/images/companies/galaxy-property.jpg',
     role: 'Software Developer',
     period: 'Oct 2024 — Present',
     current: true,
@@ -154,6 +155,7 @@ export const experience = [
   },
   {
     company: 'Campaign.com',
+    logo: '/images/companies/campaign.jpg',
     role: 'Android Developer',
     period: 'Jan 2024 — Jan 2025',
     color: 'bg-pink',
@@ -165,6 +167,7 @@ export const experience = [
   },
   {
     company: 'Herbify Indonesia',
+    logo: '/images/companies/herbify.jpg',
     role: 'Founder & Android Developer',
     period: 'July 2023 — June 2024',
     color: 'bg-navy',
