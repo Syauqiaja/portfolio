@@ -1,5 +1,6 @@
 import React from 'react';
 import Icon from './Icon';
+import TechIcon from './TechIcon';
 import Reveal from './Reveal';
 import { stats, techStrip } from '../data';
 import { useCountUp, useInView } from '../hooks';
@@ -51,9 +52,14 @@ export const TechMarquee = () => {
             <li
               key={`${t}-${i}`}
               aria-hidden={i >= techStrip.length}
-              className="flex items-center gap-10 font-display text-subheading font-medium text-fog transition-colors duration-150 hover:text-ink"
+              className="group/item flex items-center gap-10 font-display text-subheading font-medium text-fog transition-colors duration-150 hover:text-ink"
             >
-              {t}
+              <span className="flex items-center gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-button bg-paper transition-transform duration-300 ease-spring group-hover/item:-rotate-6 group-hover/item:scale-110">
+                  <TechIcon name={t} size={22} />
+                </span>
+                {t}
+              </span>
               <span className="h-1.5 w-1.5 rounded-full bg-cloud" />
             </li>
           ))}

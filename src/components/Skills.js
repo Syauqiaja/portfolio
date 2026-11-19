@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import Icon from './Icon';
+import TechIcon from './TechIcon';
 import Reveal from './Reveal';
 import { skillGroups } from '../data';
 import { useCountUp } from '../hooks';
@@ -101,9 +102,10 @@ const Skills = () => {
                 {active.tools.map((t, i) => (
                   <li
                     key={t}
-                    className="chip animate-pop-in cursor-default transition-colors duration-150 hover:animate-wiggle hover:border-teal hover:text-teal"
+                    className="chip animate-pop-in cursor-default gap-1.5 transition-colors duration-150 hover:animate-wiggle hover:border-teal hover:text-teal"
                     style={{ animationDelay: `${i * 35}ms` }}
                   >
+                    <TechIcon name={t} size={14} />
                     {t}
                   </li>
                 ))}
