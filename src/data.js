@@ -81,6 +81,27 @@ export const skillGroups = [
 ];
 
 // `art` drives the illustrated cover of each project card.
+// Shown as the big spotlight above the carousel in the Work section.
+export const featuredProject = {
+  id: 'tybeat',
+  title: 'Type Beat',
+  badge: 'New',
+  tagline: 'Learn 10-finger typing by playing music.',
+  description:
+    'A rhythm typing game set in an Indonesian rice-field village. Every correct key plays a beat on calung, kendang, gong or angklung, so practice drills turn into songs. Unlock new keys level by level, keep your streak for score multipliers, and earn up to three stars per stage.',
+  highlights: [
+    { icon: 'sparkles', label: 'Every keystroke plays a gamelan beat' },
+    { icon: 'layers', label: 'Level map that unlocks new keys step by step' },
+    { icon: 'award', label: 'Stars, streak multipliers, WPM and accuracy' },
+  ],
+  tags: ['JavaScript', 'Canvas', 'Web Audio', 'Vite'],
+  link: 'https://tybeat.fajrsyauqi.com',
+  linkLabel: 'Play Type Beat',
+  note: 'Best on a laptop or desktop with a physical keyboard.',
+  video: { mp4: '/images/projects/tybeat-preview.mp4', webm: '/images/projects/tybeat-preview.webm' },
+  poster: '/images/projects/tybeat-poster.jpg',
+};
+
 export const projects = [
   {
     id: 'herbify',

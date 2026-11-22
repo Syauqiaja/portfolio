@@ -20,3 +20,9 @@ test('project filter shows only matching projects', () => {
   expect(screen.getByRole('heading', { name: 'Herbify Telemedicine' })).toBeInTheDocument();
   expect(screen.queryByRole('heading', { name: 'Virulearn' })).not.toBeInTheDocument();
 });
+
+test('featured project spotlight links to the live game', () => {
+  render(<App />);
+  expect(screen.getByRole('heading', { name: 'Type Beat' })).toBeInTheDocument();
+  expect(screen.getByRole('link', { name: /play type beat/i })).toHaveAttribute('href', 'https://tybeat.fajrsyauqi.com');
+});

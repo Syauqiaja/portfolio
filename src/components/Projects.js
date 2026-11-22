@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Icon from './Icon';
 import Reveal from './Reveal';
+import FeaturedProject from './FeaturedProject';
 import { projects } from '../data';
 
 const filters = ['All', ...Array.from(new Set(projects.map((p) => p.category)))];
@@ -140,7 +141,10 @@ const Projects = () => {
           </div>
         </Reveal>
 
+        <FeaturedProject />
+
         <Reveal delay={100}>
+          <h3 className="mt-16 text-subheading text-ink">More projects</h3>
           <div
             ref={trackRef}
             onScroll={updateProgress}
